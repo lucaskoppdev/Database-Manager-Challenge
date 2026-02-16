@@ -16,20 +16,21 @@ def display_columns():
     print("----------> colunas do banco <----------\n")
     for column in database_column_names:
         print(column, end = "|| ")
+    print("")
     print("----------------------------------------\n")
     
 
 
 def acess_column_byname():
     user_input = input("Digite o nome da coluna que deseja acessar ->")
-
-    for index, value in enumerate(database_column_names): #retorna indice e nome da coluna
-        if user_input == value:
-            return index
-        
-        if index == len(database_column_names):
-            print("Coluna nao encontrada, confira se digitou corretamente e tente novamente!\n")
-            return None
+    
+    try:
+        for index, value in enumerate(database_column_names): #retorna indice e nome da coluna
+            if user_input == value:
+                return index
+    
+    except KeyError:
+        return "colunao nao existente!"
 
 
 
@@ -71,6 +72,29 @@ def display_columns_with_line_values():
 
 
 
+def remove_column_line_byvalue():
+    
+    database_index = acess_column_byname()
+
+    column = database[database_index]
+   
+    print("OBS: PRA CANCELAR A OPERACAO, DIGITE ->999<-")
+    user_input = input("Digite o valor da linha->")
+    
+    if user_input == 999:
+        print("Operacao cancelada com exito !")
+        return None
+
+    try:
+        for index, value in enumerate(column):
+            if value == user_input:
+                del column[database_index]
+                print("Coluna removida com sucesso!")
+                return None
+    except KeyError:
+        return "Linha nao existente!"
+
+
 def remove_column_line_byindex():
     database_index = acess_column_byname()
     
@@ -80,7 +104,7 @@ def remove_column_line_byindex():
     for valor in column:
         print(valor, end = "||")
     
-    print("OBS: PRA CANCELAR A OPERACA, DIGITE ->999<-")
+    print("OBS: PRA CANCELAR A OPERACAO, DIGITE ->999<-")
     line_pop = int(input("Digite o indice da linha que deseja remover->"))
 
     while True:
@@ -92,7 +116,8 @@ def remove_column_line_byindex():
             print("Indice inexistente, tente novamente ou aborte operacao !")
             continue
         
-        print(column)
+
+        del column[line_pop]
 
         return None
 
@@ -110,6 +135,7 @@ def database_manager():
     5-Listar as colunas e valores das linhas
     6-Remover coluna do database pelo nome
     7-Remover linha de uma coluna do database pelo indice
+    8-Remover linha de uma coluna do database pelo valor
     0-Encerrar
     \n""")
     opcao = int(input("->"))
@@ -147,3 +173,5 @@ while True:
     if action == 7:
         remove_column_line_byindex()
     
+    if action == 8:
+        remove_column_line_byvalue()
