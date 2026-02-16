@@ -1,5 +1,7 @@
 #banco de dados relacional com python from scratch
 
+from commands import *
+
 #Listas "CORE" do programa
 database = []
 database_column_names = []
@@ -121,31 +123,14 @@ def remove_column_line_byindex():
 
         return None
 
-
+#comandos possiveis
+print("exit, newcol, displaycol, insertline, displayvalues, removecolumn, removeline, removelinebyvalue")
     
     
-
-def database_manager():
-    print("---->GERENCIADOR DE BANCO DE DADOS<-----\n")
-    print(""""
-    1-Adicionar nova coluna ao Database
-    2-Listar as Colunas Existentes no banco
-    3-Acessar coluna pelo nome
-    4-Inserir valor (linhas) acessando pelo nome
-    5-Listar as colunas e valores das linhas
-    6-Remover coluna do database pelo nome
-    7-Remover linha de uma coluna do database pelo indice
-    8-Remover linha de uma coluna do database pelo valor
-    0-Encerrar
-    \n""")
-    opcao = int(input("->"))
-    return opcao
-
-
-
 #Main loop
 while True:
-    action = database_manager()
+    print("exit, newcol, displaycol, insertline, displayvalues, removecolumn, removeline, removelinebyvalue")
+    action = command_line() 
 
     if action == 0:
         print("-----> ENCERRADO <------")
@@ -157,10 +142,6 @@ while True:
     if action == 2:
         display_columns()
 
-    if action == 3:
-        asd = acess_column_byname()
-        print(asd)
-    
     if action == 4:
         insert_line_value()
 
@@ -175,3 +156,6 @@ while True:
     
     if action == 8:
         remove_column_line_byvalue()
+    
+    else:
+        print("Comando nao encontrado!")
